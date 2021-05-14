@@ -49,9 +49,6 @@ class Cartitem_Controller extends CI_Controller {
         }
     }
 
-    public function cartitem_details($id) {
-        
-    }
 
     // Giỏ hàng, gồm các sản phẩm chưa thanh toán
     public function viewShoppingCart() {

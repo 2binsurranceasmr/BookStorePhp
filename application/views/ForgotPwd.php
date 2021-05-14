@@ -5,6 +5,13 @@
  * and open the template in the editor.
  */
 ?>
+<?php
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -49,34 +56,35 @@
                 </div>
                 <div class="col-lg-5">
                     <img src="http://localhost/BookStorePhpVersion2/logo.jpg" width="50" height="50"/>
-                    <h1>Đăng nhập</h1>
-                    
-                    <?php 
-                        if (isset($error) && $error!=''){
-                            echo '<div class="alert alert-danger" role="alert">';
-                            echo $error;
-                            echo '</div>';
-                        }
-                        if (isset($success)){
-                            echo '<div class="alert alert-success" role="alert">';
-                            echo $success;
-                            echo '</div>';
-                        }
-                    ?>
-                    
+                    <h1>Lấy lại mật khẩu</h1>
                     <?php
-                    echo form_open('Account_Controller/confirmLogin');
+                    if (isset($error) && $error!='') {
+                        echo '<div class="alert alert-danger" role="alert">';
+                        echo $error;
+                        echo '</div>';
+                    }
+                    ?>
+                    <?php
+                    if (isset($success)) {
+                        echo '<div class="alert alert-success" role="alert">';
+                        echo $success;
+                        echo '</div>';
+                    }
+                    ?>
+                    <?php
+                    echo form_open('Account_Controller/recovery');
                     ?>
 
+
                     <!-- username  -->
+
 
                     <div class="form-group">
                         <?php
                         echo form_input(array(
                             'type' => 'text',
-                            'name' => 'username',
+                            'name' => 'user_name',
                             'placeholder' => 'Tên đăng nhập',
-                            
                             'class' => 'form-group'
                         ));
                         ?>
@@ -86,33 +94,45 @@
                     <!-- password  -->
 
 
+
                     <div class="form-group">
                         <?php
                         echo form_input(array(
                             'type' => 'password',
                             'name' => 'pwd',
-                            'placeholder' => 'Nhập mật khẩu',
-                            
+                            'placeholder' => 'Mật khẩu mới',
                             'class' => 'form-group'
                         ));
                         ?>
                     </div>
-                    
-                    <!-- nút  -->
-                    
+
+
+                    <!-- nhập lại password  -->
+
+                    <div class="form-group">
+                        <?php
+                        echo form_input(array(
+                            'type' => 'password',
+                            'name' => 'confirm_pwd',
+                            'placeholder' => 'Nhập lại mật khẩu mới',
+                            'class' => 'form-group'
+                        ));
+                        ?>
+                    </div>
+
+
                     <div class="row">
                         <div class="col-6">
                             <?php
                             echo form_input(array(
                                 'type' => 'submit',
-                                'name' => 'login',
+                                'name' => 'recovery',
                                 'class' => 'btn btn-primary btn-block',
-                                'value' => 'Đăng nhập'
+                                'value' => 'Cập nhật mật khẩu'
                             ));
                             ?>
                         </div>
-                        <a href="<?php echo base_url().'Account_Controller/forgot'?>" style="margin-top:3%">Quên mật khẩu</a>
-                        <a href="<?php echo base_url().'Account_Controller/register'?>" style="margin-top:3%; margin-left:5%">Đăng ký</a>
+                        <a href="<?php echo base_url() . 'Account_Controller/login' ?>" style="margin-top:3%; margin-left:5%">Quay trở lại trang đăng nhập</a>
                     </div>
 
 
@@ -129,3 +149,4 @@
         </div>
     </body>
 </html>
+

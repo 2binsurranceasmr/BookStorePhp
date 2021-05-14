@@ -20,6 +20,7 @@ class Account_Controller extends CI_Controller {
     }
 
     public function logout() {
+        // xóa user khỏi session
         $this->session->unset_userdata('account');
         $this->load->view('Index');
     }
@@ -46,9 +47,9 @@ class Account_Controller extends CI_Controller {
             // Lấy input từ form đăng nhập
             $user_name = $this->input->post('username', true);
             $pwd = $this->input->post('pwd', true);
-
-            // Kiểm tra đăng nhập có hợp lệ không
             $data = array('user_name' => $user_name, 'pwd' => $pwd);
+            
+            // Kiểm tra đăng nhập có hợp lệ không
             if ($this->Account_Model->isExist($user_name)) {
                 // Nếu hợp lệ
                 if ($this->Account_Model->confirmAccount($data)) {
@@ -88,7 +89,7 @@ class Account_Controller extends CI_Controller {
     public function signup() {
 
         $info = array();
-        $this->form_validation->set_rules('user_name', 'Username', 'trim|required|min_length[3]|max_length[36]|alpha_dash');
+        $this->form_validation->set_rules('user_name', 'user_name', 'trim|required|min_length[3]|max_length[36]|alpha_dash');
         $this->form_validation->set_rules('pwd', 'Pasword', 'trim|required|min_length[3]|max_length[36]');
         $this->form_validation->set_rules('confirm_pwd', 'Password Confirmation', 'trim|required|matches[pwd]');
         // Nếu form chứa dữ liệu lỗi
@@ -115,12 +116,15 @@ class Account_Controller extends CI_Controller {
     }
 
     public function accountDetails($error = '') {
+        // Nếu user không đăng nhập thì chuyển qua trang đăng nhập
         if ($this->session->userdata('account') == null) {
             redirect(base_url() . 'Account_Controller/login');
         } else {
+            // Load dữ diệu tài khoản từ database
             $data['account'] = $this->Account_Model->get_by_id($this->session->userdata('account')->id);
             $data['role'] = $this->Role_Model->getName($this->session->userdata('account')->role_id);
             $data['error'] = $error;
+            // Và load trang thông tin tài khoản
             $this->load->view('AccountDetails', $data);
         }
     }
@@ -128,17 +132,20 @@ class Account_Controller extends CI_Controller {
     public function do_update() {
 
         $this->form_validation->set_rules('full_name', 'Full name', 'trim|required');
-        $this->form_validation->set_rules('pwd', 'Password', 'trim|required|alpha_dash|min_length[3]|max_length[36]');
+        $this->form_validation->set_rules('pwd', 'Password', 'trim|required|min_length[3]|max_length[36]');
         $this->form_validation->set_rules('confirm_pwd', 'Password Confirmation', 'required|matches[pwd]');
 
         if ($this->input->post('update')) {
+            // Nếu kiểm tra form thất bại thì tải lại trang xem sách
             if ($this->form_validation->run() == FALSE) {
                 redirect(base_url().'Book_Controller/books');
             } else {
-                $data['id'] = $this->input->post('account_id');
+                
+                // Nạp thông tin tài khoản vào $data
+                $data['id'] = $this->input->post('account_id',true);
                 $data['account'] = array(
-                    'pwd' => md5($this->input->post('pwd')),
-                    'full_name' => $this->input->post('full_name')
+                    'pwd' => md5($this->input->post('pwd',true)),
+                    'full_name' => $this->input->post('full_name',true)
                 );
 
                 // Kiểm tra ảnh có được chọn hay không
@@ -155,6 +162,41 @@ class Account_Controller extends CI_Controller {
                 // Tiến hành update thông tin
                 $this->Account_Model->update($data['id'], $data['account']);
                 redirect(base_url() . 'Account_Controller/accountDetails');
+            }
+        }
+    }
+    
+    public function forgot($data=null){
+        if($data!=null){
+            $param['error']=$data['error'];
+        }
+        else{
+            $param['error']='';
+        }
+        $this->load->view('ForgotPwd',$param);
+    }
+    
+    // Đổi mật khẩu/ quên mật khẩu
+    public function recovery() {
+        
+        //validate form input
+        $this->form_validation->set_rules('user_name', 'user_name', 'trim|required|min_length[3]|max_length[36]|alpha_dash');
+        $this->form_validation->set_rules('pwd', 'Pasword', 'trim|required|min_length[3]|max_length[36]');
+        $this->form_validation->set_rules('confirm_pwd', 'Password Confirmation', 'trim|required|matches[pwd]');
+        if ($this->input->post('recovery')) {
+            if ($this->form_validation->run() == FALSE) {
+                // Nếu validate thất bại thì trả lại lỗi
+                $this->forgot(array('error' => validation_errors()));
+            } else {
+                // Kiểm tra tên đăng nhập có tồn tại hay không
+                if (!$this->Account_Model->isExist($this->input->post('user_name',true))) {
+                    $this->forgot(array('error' => 'Username không tồn tại'));
+                } else {
+                    // Nếu tồn thì thì tiến hành cập nhật mật khẩu mới
+                    $this->Account_Model->update_password(md5($this->input->post('pwd',true)),$this->input->post('user_name',true));
+                    $data['success'] = 'Đổi mật khẩu thành công';
+                    $this->load->view('Login', $data);
+                }
             }
         }
     }

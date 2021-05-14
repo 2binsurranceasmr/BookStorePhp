@@ -59,7 +59,7 @@ class Cartitem_Model extends CI_Model {
             'shipping_id' => $shipping_id
         );
         
-        $this->db->where('account_id', $account_id);
+        $this->db->where(array('account_id'=> $account_id,'status'=>0));
         $this->db->update('cartitem', $data);
     }
     

@@ -60,4 +60,10 @@ class Account_Model extends CI_Model{
         $this->db->where("id", $id);
         $this->db->update("account", $data);
     }
+    
+    public function update_password($password,$username){
+        $this->db->set(array('pwd'=>$password));
+        $this->db->where("user_name",$username);
+        $this->db->update('account',array('pwd'=>$password));
+    }
 }
