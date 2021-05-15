@@ -74,6 +74,7 @@ class Cartitem_Model extends CI_Model {
         return $this->db->get()->result();
     }
     
+    // Lịch sử mua sắm
     public function get_shipping_cartitem($shipping_id){
         $this->db->select(' B.image, B.title, C.quantity, C.order_date,S.status');
         $this->db->from('cartitem as C');
@@ -84,4 +85,13 @@ class Cartitem_Model extends CI_Model {
         
     }
     
+    public function get_purchased_statistic(){
+        $query='SELECT b.image, b.title, SUM(quantity) AS total '
+                . 'FROM cartitem AS c JOIN book as b '
+                . 'WHERE c.book_id = b.id '
+                . 'GROUP BY b.title '
+                . 'ORDER BY total DESC ';
+        $result=$this->db->query($query);
+        return $result->result();
+    }
 }

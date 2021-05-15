@@ -9,6 +9,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <title>Tiệm Sách Stop Motion</title>
         <style>
             body {
                 background: #eecda3;
@@ -59,6 +60,9 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="<?php echo base_url() . 'Shipping_Controller/ships' ?>">Giao hàng</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<?php echo base_url() . 'Shipping_Controller/statistic' ?>">Thống kê</a>
                     </li>
                     <?php }?>
                 </ul>
@@ -180,7 +184,7 @@
                             'type' => 'text',
                             'name' => 'address',
                             'class' => 'form_group',
-                            
+                            'required' => 'true',
                             'placeholder' => 'D302 Cơ sở chính'
                         ));
                         ?>
@@ -193,7 +197,7 @@
                             'type' => 'text',
                             'name' => 'city',
                             'class' => 'form_group',
-                            
+                            'required' => 'true',
                             'placeholder' => 'Hồ Chí Minh'
                         ));
                         ?>
@@ -206,7 +210,7 @@
                             'type' => 'number',
                             'name' => 'number_phone',
                             'class' => 'form_group',
-                           
+                           'required' => 'true',
                             'placeholder' => '888'
                         ));
                         ?>

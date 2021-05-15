@@ -14,6 +14,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <title>Tiệm Sách Stop Motion</title>
     </head>
     <style>
         .card-img-top {
@@ -47,12 +48,29 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="<?php echo base_url() . 'Shipping_Controller/ships' ?>">Giao hàng</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<?php echo base_url() . 'Shipping_Controller/statistic' ?>">Thống kê</a>
+                    </li>
                     <?php }?>
                 </ul>
             </div>
             <!-- Second nav right -->
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            <i class="fas fa-sort"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right float-right" style="position:absolute">
+                            <a class="dropdown-item" href="<?php echo base_url() . 'Book_Controller/sort' ?>">Mặc định</a>
+                            <a class="dropdown-item" href="<?php echo base_url() . 'Book_Controller/sort/price' ?>">Theo giá</a>
+                            <a class="dropdown-item" href="<?php echo base_url() . 'Book_Controller/sort/title' ?>">Theo tên</a>
+                        </div>
+                    </li>
+                    
+                    
                     <li>
                         <form class="form-inline" action="<?php echo base_url() . 'Book_Controller/search' ?> " method='post'>
                             <input class="form-control mr-sm-2" type="text" placeholder="Tìm kiếm" name='book_title'>
@@ -61,6 +79,11 @@
                             </button>
                         </form>
                     </li>
+                    
+                    
+                    
+                    
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             <span class="fas fa-user-cog"></span>
@@ -87,7 +110,13 @@
         <!-- Container -->
         <div class="container" style="margin-top:80px">
 
-
+            <?php
+            if (isset($error)) {
+                echo '<div class="alert alert-danger" role="alert">';
+                echo $error;
+                echo '</div>';
+            }
+            ?>
 
             <div class="row d-flex align-items-stretch">
                 <div class="card-columns">

@@ -66,4 +66,14 @@ class Account_Model extends CI_Model{
         $this->db->where("user_name",$username);
         $this->db->update('account',array('pwd'=>$password));
     }
+    
+    public function get_purchased_statistic(){
+        $query = 'select a.id, a.full_name, sum(c.quantity * b.price) as total '
+                . 'from shipping as sh join cartitem as c join book as b join account as a '
+                . 'where sh.id = c.shipping_id and b.id=c.book_id and a.id = c.account_id '
+                . 'GROUP by a.id '
+                . 'order by total desc ';
+        $result = $this->db->query($query);
+        return $result->result();
+    }
 }

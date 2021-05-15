@@ -12,6 +12,17 @@ class Upload extends CI_Controller {
     }
 
     public function do_upload() {
+        // Nếu chưa đăng nhập
+        if ($this->session->userdata('account') == null) {
+            // gửi lỗi
+            show_404();
+        } else {
+            // Tiếp tục kiểm tra role
+            if ($this->session->userdata('account')->role_id != 1) {
+                // Nếu không phải admin thì hiển thị lỗi
+                show_404();
+            }
+        }
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 100;

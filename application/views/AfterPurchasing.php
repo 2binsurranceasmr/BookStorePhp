@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <title>Cám ơn đã mua sắm</title>
         <script src="https://bootstrapcreative.com/wp-bc/wp-content/themes/wp-bootstrap/codepen/bootstrapcreative.js?v=1"></script>
-
+        <title>Tiệm Sách Stop Motion</title>
         <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css'>
     </head>
     <body >

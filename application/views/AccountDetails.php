@@ -14,6 +14,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <title>Tiệm Sách Stop Motion</title>
     </head>
     <style>
         .card-img-top {
@@ -42,6 +43,9 @@
                     </li>
                      <li class="nav-item active">
                         <a class="nav-link" href="<?php echo base_url() . 'Shipping_Controller/ships' ?>">Giao hàng</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<?php echo base_url() . 'Shipping_Controller/statistic' ?>">Thống kê</a>
                     </li>
                     <?php }?>
                 </ul>
@@ -118,7 +122,7 @@
                     <div class='form-group row justify-content-end my-2 '>
                         <label class='col-3  form-label my-2 text-right'>Tên đầy đủ</label>
                         <div class='col-8 '>
-                            <input class="form-control" name="full_name" type="text" value="<?php echo $account->full_name ?>" placeholder="Chưa có tiêu đề" >
+                            <input class="form-control" name="full_name" type="text" value="<?php echo $account->full_name ?>" placeholder="Chưa có tiêu đề" required="true" >
                         </div>
                     </div>
 
@@ -127,7 +131,7 @@
                     <div class='form-group row justify-content-end my-2 '>
                         <label class='col-3  form-label my-2 text-right'>Mật khẩu mới</label>
                         <div class='col-8 '>
-                            <input class="form-control" name="pwd" type="password" value="" placeholder="password" >
+                            <input class="form-control" name="pwd" type="password" value="" placeholder="password" required="true">
                         </div>
                     </div>
 
@@ -136,7 +140,7 @@
                     <div class='form-group row justify-content-end my-2 '>
                         <label class='col-3  form-label my-2 text-right'>Nhập lại mật khẩu mới</label>
                         <div class='col-8 '>
-                            <input class="form-control" name="confirm_pwd" type="password" value="" placeholder="password" >
+                            <input class="form-control" name="confirm_pwd" type="password" value="" placeholder="password" required="true" >
                         </div>
                     </div>
 

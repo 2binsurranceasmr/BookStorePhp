@@ -26,10 +26,15 @@ class Book_Model extends CI_Model {
     }
 
     // Lấy hết sách của page
-    public function get_current_page_records($limit, $start) {
+    public function get_current_page_records($limit, $start,$sort=false, $property=null, $order=null) {
 
         // Lấy book của page, từ offset $start
         $this->db->limit($limit, $start);
+        
+        // Nếu có thực hiện sort
+        if($sort==true){
+            $this->db->order_by($property,$order);
+        }
         $query = $this->db->get("book");
 
         // Trả về dữ liệu
@@ -71,5 +76,12 @@ class Book_Model extends CI_Model {
     public function insert($data){
         $this->db->insert('book',$data);
     }
+    
+//    public function sort_by($property,$order){
+//        $this->db->order_by($property,$order);
+//        $query = $this->db->get('book');
+//        $result = $query->result();
+//        return $result;
+//    }
 
 }

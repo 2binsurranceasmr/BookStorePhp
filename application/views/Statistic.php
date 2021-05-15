@@ -100,49 +100,70 @@
                 </ul>
             </div>
         </nav>
+        
         <div class="container" style="padding-top:80px">
-            <div class="row">
-                <div class="col">
-                    <div class="jumbotron">
-                        <h2>Thông tin giao hàng</h2>
-                    </div>
-                    <div class="table-responsive bg-light p-5 rounded">
-                        <table class="table table-light table-striped rounded">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Chủ thẻ</th>
-                                    <th>Số thẻ</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Chi tiết</th>
-                                    <th>Giao</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($ships as $ships) {
-                                    ?>
-                                    <tr>
-                                        <td> <?php echo $ships->card_owner ?> </td>
-                                        <td> <?php echo $ships->card_number ?> </td>
-                                        <td> <?php echo $ships->address ?> </td>
-                                        <td> <?php echo $ships->number_phone ?> </td>
-                                        <td>
-                                            <a href="<?php echo base_url().'Shipping_Controller/viewShippingCartitem/'.$ships->id;?>" class="btn btn-outline-primary" role="button">Chi tiết</a>
-                                        </td>
-                                        <td>
-                                            <a href="<?php echo base_url().'Shipping_Controller/ship/'.$ships->id;?>" class="btn btn-success" role="button">Giao hàng</a>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
+            <div class="jumbotron">
+                <h2>Thống kê sách bán được</h2>
             </div>
+            <table class="table table-light table-striped rounded">
+                <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th>Tiêu đề</th>
+                        <th>Số lượng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($cartitems as $cart) {
+                        ?>
+                        <tr>
+                            <td> <img width='70px' height="70px" src="<?php echo base_url() . $cart->image ?>" </td>
+                            <td> <?php echo $cart->title ?> </td>
+                            <td> <?php echo $cart->total ?> </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+            
+            <div class="jumbotron" style='padding-top:30px'>
+                <h2>Thống kê khách hàng </h2>
+            </div>
+            <table class="table table-light table-striped rounded">
+                <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th>ID tài khoản</th>
+                        <th>Tên khách hàng</th>
+                        <th>Tiêu phí</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $total=0;
+                    foreach ($accounts as $account) {
+                        $total += $account->total;
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td> <?php echo $account->id ?> </td>
+                            <td> <?php echo $account->full_name ?> </td>
+                            <td> <?php echo $account->total ?> </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+            
+            <div class="jumbotron bg-light" style='padding-top:30px'>
+                <h2>Tổng thu nhập: <strong style="color:blue" class='money'><?php echo $total?> <u>Đ </u></strong>
+                </h2>
+            </div>
+            
+
         </div>
     </body>
 </html>

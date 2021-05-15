@@ -7,6 +7,7 @@
 ?>
 <html>
     <head>
+        <title>Tiệm Sách Stop Motion</title>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +77,7 @@
                             'type' => 'text',
                             'name' => 'username',
                             'placeholder' => 'Tên đăng nhập',
-                            
+                            'required' => 'true',
                             'class' => 'form-group'
                         ));
                         ?>
@@ -92,7 +93,7 @@
                             'type' => 'password',
                             'name' => 'pwd',
                             'placeholder' => 'Nhập mật khẩu',
-                            
+                            'required' => 'true',
                             'class' => 'form-group'
                         ));
                         ?>

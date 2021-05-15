@@ -21,7 +21,7 @@ class Account_Controller extends CI_Controller {
 
     public function logout() {
         // xóa user khỏi session
-        $this->session->unset_userdata('account');
+        $this->session->sess_destroy();;
         $this->load->view('Index');
     }
 
@@ -36,7 +36,7 @@ class Account_Controller extends CI_Controller {
         if (!$this->input->post('login')) {
             show_404();
         }
-        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[3]|max_length[36]|alpha_dash');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[3]|max_length[36]');
         $this->form_validation->set_rules('pwd', 'Pasword', 'trim|required|min_length[3]|max_length[36]');
         
         if ($this->form_validation->run() == FALSE) {
@@ -89,7 +89,7 @@ class Account_Controller extends CI_Controller {
     public function signup() {
 
         $info = array();
-        $this->form_validation->set_rules('user_name', 'user_name', 'trim|required|min_length[3]|max_length[36]|alpha_dash');
+        $this->form_validation->set_rules('user_name', 'user_name', 'trim|required|min_length[3]|max_length[36]');
         $this->form_validation->set_rules('pwd', 'Pasword', 'trim|required|min_length[3]|max_length[36]');
         $this->form_validation->set_rules('confirm_pwd', 'Password Confirmation', 'trim|required|matches[pwd]');
         // Nếu form chứa dữ liệu lỗi
@@ -130,11 +130,13 @@ class Account_Controller extends CI_Controller {
     }
 
     public function do_update() {
-
+        if ($this->session->userdata('account') == null) {
+            redirect(base_url() . 'Account_Controller/login');
+        }
         $this->form_validation->set_rules('full_name', 'Full name', 'trim|required');
         $this->form_validation->set_rules('pwd', 'Password', 'trim|required|min_length[3]|max_length[36]');
         $this->form_validation->set_rules('confirm_pwd', 'Password Confirmation', 'required|matches[pwd]');
-
+        
         if ($this->input->post('update')) {
             // Nếu kiểm tra form thất bại thì tải lại trang xem sách
             if ($this->form_validation->run() == FALSE) {

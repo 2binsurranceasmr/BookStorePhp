@@ -68,6 +68,17 @@ class Shipping_Controller extends CI_Controller {
 
     // Xem các đơn đặt hàng hiện có
     public function ships(){
+        // Nếu chưa đăng nhập
+        if ($this->session->userdata('account') == null) {
+            // gửi lỗi
+            show_404();
+        } else {
+            // Tiếp tục kiểm tra role
+            if ($this->session->userdata('account')->role_id != 1) {
+                // Nếu không phải admin thì hiển thị lỗi
+                show_404();
+            }
+        }
         $data['ships'] = $this->Shipping_Model->get_all_unshipped();
         $data['role'] = 'ADMIN';
         $this->load->view('Ships',$data);
@@ -84,9 +95,38 @@ class Shipping_Controller extends CI_Controller {
     
     // Xem các sản phẩm thuộc 1 đơn đặt hàng nào đó
     public function viewShippingCartitem($shipping_id){
+        // Nếu chưa đăng nhập
+        if ($this->session->userdata('account') == null) {
+            // gửi lỗi
+            show_404();
+        } else {
+            // Tiếp tục kiểm tra role
+            if ($this->session->userdata('account')->role_id != 1) {
+                // Nếu không phải admin thì hiển thị lỗi
+                show_404();
+            }
+        }
         $data['cartitems'] = $this->Cartitem_Model->get_shipping_cartitem($shipping_id);
         $data['role'] = $this->Role_Model->getName($this->session->userdata('account')->role_id );
         $this->load->view('ShipDetails',$data);
+    }
+    
+    public function statistic(){
+        // Nếu chưa đăng nhập
+        if ($this->session->userdata('account') == null) {
+            // gửi lỗi
+            show_404();
+        } else {
+            // Tiếp tục kiểm tra role
+            if ($this->session->userdata('account')->role_id != 1) {
+                // Nếu không phải admin thì hiển thị lỗi
+                show_404();
+            }
+        }
+        $data['cartitems'] = $this->Cartitem_Model->get_purchased_statistic();
+        $data['accounts'] = $this->Account_Model->get_purchased_statistic();
+        $data['role'] = 'ADMIN';
+        $this->load->view('Statistic',$data);
     }
 
 }
