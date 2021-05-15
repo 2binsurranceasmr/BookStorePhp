@@ -63,7 +63,9 @@ class Cartitem_Controller extends CI_Controller {
             'account_id' => $this->session->userdata('account')->id,
             'status' => 0
         );
-
+        
+        $data['account'] = $this->Account_Model->get_by_id($param['account_id']);
+        
         // Lấy danh sách cartitem của khách hàng có status = 0
         $data['cartitems'] = $this->Cartitem_Model->get_cart($param);
         // Tính tổng giá

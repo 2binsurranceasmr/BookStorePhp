@@ -29,6 +29,8 @@ class Account_Model extends CI_Model{
         else return false;
     }
     
+
+    
     public function getByUsername($username){
         $query = $this->db->get_where('account',array('user_name'=>$username));
         $result = $query->row();

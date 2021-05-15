@@ -25,7 +25,7 @@ class Shipping_Controller extends CI_Controller {
         $this->form_validation->set_rules('card_number', 'Card Number', 'required|is_natural');
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
-        $this->form_validation->set_rules('number_phone', 'Phone Number', 'required|is_natural');
+        $this->form_validation->set_rules('number_phone', 'Phone Number', 'required');
         
         // Nếu có lỗi, tải lại trang
         if ($this->form_validation->run() == FALSE) {

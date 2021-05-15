@@ -172,7 +172,7 @@
                             'type' => 'number',
                             'name' => 'card_number',
                             'class' => 'form_group',
-                           
+                            'value' => $account->card_number,
                             'placeholder' => '0000000'
                         ));
                         ?>
@@ -185,6 +185,7 @@
                             'name' => 'address',
                             'class' => 'form_group',
                             'required' => 'true',
+                            'value' => $account->address,
                             'placeholder' => 'D302 Cơ sở chính'
                         ));
                         ?>
@@ -198,6 +199,7 @@
                             'name' => 'city',
                             'class' => 'form_group',
                             'required' => 'true',
+                            'value' => $account->city,
                             'placeholder' => 'Hồ Chí Minh'
                         ));
                         ?>
@@ -211,6 +213,7 @@
                             'name' => 'number_phone',
                             'class' => 'form_group',
                            'required' => 'true',
+                            'value' => $account->number_phone,
                             'placeholder' => '888'
                         ));
                         ?>
